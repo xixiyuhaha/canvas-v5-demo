@@ -2577,7 +2577,7 @@ function distanceToSegment(point, start, end) {
 
 function drawConnectionPath({ start, end, startSide = "right", endSide = "left", isActive = false, theme = "color", showEndDot = false }) {
   const scale = state.viewport.scale;
-  const lineWidth = 2 * scale;
+  const lineWidth = 1 * scale;
   const bend = Math.max(90, Math.min(240, Math.abs(end.x - start.x) * 0.48));
   const startDirection = startSide === "left" ? -1 : 1;
   const endDirection = endSide === "left" ? -1 : 1;
@@ -2589,7 +2589,7 @@ function drawConnectionPath({ start, end, startSide = "right", endSide = "left",
   dragLineContext.lineCap = "round";
   dragLineContext.lineJoin = "round";
   dragLineContext.shadowColor = isActive ? shadowColorForTheme(theme) : "transparent";
-  dragLineContext.shadowBlur = isActive ? 5 * scale : 0;
+  dragLineContext.shadowBlur = isActive ? 3 * scale : 0;
   dragLineContext.strokeStyle = isActive ? baseLineColorForTheme(theme) : "rgba(255, 255, 255, 0.1)";
   dragLineContext.lineWidth = lineWidth;
   dragLineContext.beginPath();
@@ -2599,7 +2599,7 @@ function drawConnectionPath({ start, end, startSide = "right", endSide = "left",
 
   if (showEndDot) {
     dragLineContext.fillStyle = baseLineColorForTheme(theme);
-    dragLineContext.shadowBlur = 4 * scale;
+    dragLineContext.shadowBlur = 3 * scale;
     dragLineContext.beginPath();
     dragLineContext.arc(end.x, end.y, 3 * scale, 0, Math.PI * 2);
     dragLineContext.fill();
@@ -2674,10 +2674,10 @@ function drawDragFlow(points, theme = "color") {
   const head = ((performance.now() / 2600) * cycleLength) % cycleLength;
   const startDistance = head - segmentLength;
   const step = 5.5 * scale;
-  const strokeSpan = 8 * scale;
+  const strokeSpan = 6 * scale;
 
   dragLineContext.shadowColor = shadowColorForTheme(theme);
-  dragLineContext.shadowBlur = 5 * scale;
+  dragLineContext.shadowBlur = 3 * scale;
 
   for (let offset = 0; offset <= segmentLength; offset += step) {
     const actualStart = startDistance + offset - strokeSpan;
@@ -2697,7 +2697,7 @@ function drawDragFlow(points, theme = "color") {
     dragLineContext.moveTo(from.x, from.y);
     dragLineContext.lineTo(to.x, to.y);
     dragLineContext.strokeStyle = colorAtDragFlow(progress, theme);
-    dragLineContext.lineWidth = (2 + 2 * Math.sin(Math.PI * progress)) * scale;
+    dragLineContext.lineWidth = (1 + Math.sin(Math.PI * progress)) * scale;
     dragLineContext.stroke();
   }
 
