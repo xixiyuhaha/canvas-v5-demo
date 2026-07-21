@@ -401,6 +401,12 @@ img {
   box-shadow: 0 0 8px rgba(255, 255, 255, 0.18);
 }
 
+.line-swatch--mixed {
+  background:
+    linear-gradient(#fff, #fff) left / 3px 100% no-repeat,
+    linear-gradient(90deg, #008ee5 0%, #1cb1e5 40%, #d6b20a 66%, #e48120 82%, #008ee5 100%);
+}
+
 .empty-hint {
   left: 50%;
   top: 50%;
@@ -724,7 +730,9 @@ img {
 }
 
 .canvas-stage.line-theme-white .image-node.is-selected .image-box,
-.canvas-stage.line-theme-white .image-node:focus-visible .image-box {
+.canvas-stage.line-theme-white .image-node:focus-visible .image-box,
+.canvas-stage.node-frame-white .image-node.is-selected .image-box,
+.canvas-stage.node-frame-white .image-node:focus-visible .image-box {
   border-color: rgba(255, 255, 255, 0.84);
 }
 
@@ -734,7 +742,8 @@ img {
     0 0 0 1px rgba(0, 142, 229, 0.12);
 }
 
-.canvas-stage.line-theme-white .image-node.is-selected .image-box {
+.canvas-stage.line-theme-white .image-node.is-selected .image-box,
+.canvas-stage.node-frame-white .image-node.is-selected .image-box {
   box-shadow:
     inset 0 0 0 3px #1e1e20,
     0 0 0 1px rgba(255, 255, 255, 0.16);
@@ -1113,6 +1122,9 @@ img {
           </button>
           <button type="button" data-line-theme="white" aria-label="白色线">
             <i class="line-swatch line-swatch--white"></i>
+          </button>
+          <button type="button" data-line-theme="color-white-frame" aria-label="彩色线白色选中框">
+            <i class="line-swatch line-swatch--mixed"></i>
           </button>
         </div>
 
@@ -2732,8 +2744,11 @@ function shadowColorForTheme(theme = "color") {
 }
 
 function setLineTheme(theme) {
-  state.lineTheme = theme === "white" ? "white" : "color";
+  const nextTheme = ["color", "white", "color-white-frame"].includes(theme) ? theme : "color";
+
+  state.lineTheme = nextTheme;
   stage?.classList.toggle("line-theme-white", state.lineTheme === "white");
+  stage?.classList.toggle("node-frame-white", state.lineTheme === "white" || state.lineTheme === "color-white-frame");
   state.connections.forEach((connection) => {
     connection.theme = state.lineTheme;
   });
