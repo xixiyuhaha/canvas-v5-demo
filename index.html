@@ -97,6 +97,7 @@ img {
 .bottom-tools,
 .ai-chat,
 .line-theme-panel,
+.empty-style-panel,
 .empty-hint,
 .create-menu,
 .image-node,
@@ -113,7 +114,8 @@ img {
 .left-tools,
 .bottom-tools,
 .ai-chat,
-.line-theme-panel {
+.line-theme-panel,
+.empty-style-panel {
   z-index: 5;
 }
 
@@ -307,6 +309,14 @@ img {
   background: rgba(255, 255, 255, 0.08);
 }
 
+.bottom-tools button:not(.active) {
+  opacity: 0.46;
+}
+
+.bottom-tools button:not(.active):hover {
+  opacity: 0.76;
+}
+
 .bottom-tools img {
   width: 12px;
   height: 12px;
@@ -363,14 +373,31 @@ img {
   backdrop-filter: blur(24px);
 }
 
-.line-theme-panel span {
+.empty-style-panel {
+  right: 12px;
+  bottom: 104px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px 4px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  background: rgba(18, 18, 18, 0.42);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(24px);
+}
+
+.line-theme-panel span,
+.empty-style-panel span {
   margin-right: 2px;
   color: rgba(255, 255, 255, 0.48);
   font-size: 11px;
   line-height: 18px;
 }
 
-.line-theme-panel button {
+.line-theme-panel button,
+.empty-style-panel button {
   width: 24px;
   height: 24px;
   display: grid;
@@ -381,7 +408,9 @@ img {
 }
 
 .line-theme-panel button:hover,
-.line-theme-panel button.is-active {
+.line-theme-panel button.is-active,
+.empty-style-panel button:hover,
+.empty-style-panel button.is-active {
   background: rgba(255, 255, 255, 0.08);
 }
 
@@ -405,6 +434,76 @@ img {
   background:
     linear-gradient(#fff, #fff) left / 3px 100% no-repeat,
     linear-gradient(90deg, #008ee5 0%, #1cb1e5 40%, #d6b20a 66%, #e48120 82%, #008ee5 100%);
+}
+
+.empty-swatch {
+  width: 14px;
+  height: 14px;
+  position: relative;
+  display: block;
+}
+
+.empty-swatch--original {
+  border: 1.5px solid rgba(255, 255, 255, 0.48);
+  border-radius: 4px;
+}
+
+.empty-swatch--original::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  bottom: 3px;
+  height: 4px;
+  border: 1.5px solid rgba(255, 255, 255, 0.36);
+  border-top: 0;
+  border-radius: 0 0 3px 3px;
+  transform: skewX(-14deg);
+}
+
+.empty-swatch--energy {
+  border-radius: 4px 10px 5px 10px;
+  background: linear-gradient(135deg, #0094ff 0%, #5be4ff 62%, #ffb72b 100%);
+  transform: rotate(-18deg);
+}
+
+.empty-swatch--typed {
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 3px;
+}
+
+.empty-swatch--typed::before,
+.empty-swatch--typed::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.64);
+}
+
+.empty-swatch--typed::before {
+  top: 4px;
+}
+
+.empty-swatch--typed::after {
+  top: 8px;
+}
+
+.empty-swatch--prompt {
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.32),
+    6px 6px 0 -4px #1cb1e5;
+}
+
+.empty-swatch--brand {
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.82) 0 1px, transparent 2px),
+    conic-gradient(from 20deg, #ffb72b, #62e6ff, #008ee5, #ffb72b);
+  opacity: 0.9;
 }
 
 .empty-hint {
@@ -701,23 +800,25 @@ img {
     border-color 160ms ease,
     box-shadow 160ms ease,
     transform 160ms ease;
+  overflow: hidden;
 }
 
 .image-node:hover .image-box,
 .image-node.is-port-hover .image-box {
-  border-color: rgba(255, 255, 255, 0.6);
+  border-color: rgba(255, 255, 255, 0.45);
 }
 
 .image-node.is-connection-hot .image-box {
-  border-color: rgba(0, 142, 229, 0.68);
+  border-color: rgba(255, 255, 255, 0.45);
   box-shadow:
     inset 0 0 0 3px #1e1e20,
     var(--connect-shadow-x) var(--connect-shadow-y) var(--connect-shadow-blur) rgba(0, 0, 0, var(--connect-shadow-alpha)),
     0 0 0 1px rgba(0, 142, 229, var(--connect-outline-opacity));
 }
 
-.canvas-stage.line-theme-white .image-node.is-connection-hot .image-box {
-  border-color: rgba(255, 255, 255, 0.72);
+.canvas-stage.line-theme-white .image-node.is-connection-hot .image-box,
+.canvas-stage.node-frame-white .image-node.is-connection-hot .image-box {
+  border-color: rgba(255, 255, 255, 0.45);
   box-shadow:
     inset 0 0 0 3px #1e1e20,
     var(--connect-shadow-x) var(--connect-shadow-y) var(--connect-shadow-blur) rgba(0, 0, 0, var(--connect-shadow-alpha)),
@@ -726,14 +827,14 @@ img {
 
 .image-node.is-selected .image-box,
 .image-node:focus-visible .image-box {
-  border-color: #008ee5;
+  border-color: rgba(255, 255, 255, 0.45);
 }
 
 .canvas-stage.line-theme-white .image-node.is-selected .image-box,
 .canvas-stage.line-theme-white .image-node:focus-visible .image-box,
 .canvas-stage.node-frame-white .image-node.is-selected .image-box,
 .canvas-stage.node-frame-white .image-node:focus-visible .image-box {
-  border-color: rgba(255, 255, 255, 0.84);
+  border-color: rgba(255, 255, 255, 0.45);
 }
 
 .image-node.is-selected .image-box {
@@ -761,11 +862,258 @@ img {
   background: #202022;
 }
 
-.image-box img {
+.image-box > img {
   position: relative;
   width: 30px;
   height: 30px;
   opacity: 0.72;
+}
+
+.image-node.has-rich-empty .image-box > img {
+  opacity: 0;
+}
+
+.canvas-stage.empty-style-original .image-node.has-rich-empty .image-box > img {
+  opacity: 0.72;
+}
+
+.node-empty {
+  position: absolute;
+  inset: 3px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 8px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.image-node.has-rich-empty .node-empty {
+  opacity: 1;
+}
+
+.empty-core {
+  position: relative;
+  width: 104px;
+  height: 104px;
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.empty-core::before {
+  content: "";
+  position: absolute;
+  inset: 24px;
+  border-radius: 18px 44px 20px 44px;
+  background: linear-gradient(135deg, rgba(0, 148, 255, 0.55), rgba(91, 228, 255, 0.62) 58%, rgba(255, 183, 43, 0.64));
+  transform: rotate(-18deg);
+  animation: emptyEnergyPulse 2.6s ease-in-out infinite;
+}
+
+.empty-core::after {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.42) 0 1px, transparent 1.4px) 0 0 / 13px 13px,
+    radial-gradient(circle, rgba(28, 177, 229, 0.2), transparent 62%);
+  mask-image: radial-gradient(circle, #000 0 54%, transparent 74%);
+  opacity: 0.72;
+  animation: emptyHaloPulse 3.2s ease-in-out infinite;
+}
+
+.empty-glyph {
+  position: relative;
+  z-index: 2;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  opacity: 0.9;
+}
+
+.empty-glyph svg {
+  width: 100%;
+  height: 100%;
+  stroke: currentColor;
+  fill: none;
+}
+
+.empty-typed {
+  width: 148px;
+  height: 108px;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.empty-typed::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015)),
+    radial-gradient(circle at 50% 46%, rgba(0, 148, 255, 0.12), transparent 58%);
+}
+
+.empty-typed::after {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  opacity: 0.8;
+}
+
+.image-node[data-node-type="text"] .empty-typed::after {
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.34), rgba(255, 255, 255, 0.34)) 0 4px / 74% 2px no-repeat,
+    linear-gradient(rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.18)) 0 24px / 100% 2px no-repeat,
+    linear-gradient(rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.14)) 0 44px / 82% 2px no-repeat,
+    linear-gradient(90deg, transparent 0 46%, rgba(28, 177, 229, 0.75) 46% 48%, transparent 48%) 0 0 / 100% 100% no-repeat;
+}
+
+.image-node[data-node-type="image"] .empty-typed::after {
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 6px;
+  background:
+    linear-gradient(135deg, transparent 45%, rgba(255, 255, 255, 0.18) 46% 48%, transparent 49%),
+    radial-gradient(circle at 76% 28%, rgba(255, 255, 255, 0.38) 0 5px, transparent 6px),
+    linear-gradient(135deg, transparent 0 54%, rgba(28, 177, 229, 0.32) 55% 62%, transparent 63%);
+}
+
+.image-node[data-node-type="video"] .empty-typed::after {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.18) 0 18px, transparent 18px 24px) 0 74px / 100% 10px repeat-x,
+    linear-gradient(135deg, transparent 34%, rgba(255, 255, 255, 0.5) 35% 45%, transparent 46%) 50% 38% / 36px 36px no-repeat;
+}
+
+.image-node[data-node-type="audio"] .empty-typed::after {
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.22) 0 2px, transparent 2px 12px) 0 50% / 12px 34px repeat-x,
+    radial-gradient(circle at 18% 50%, rgba(28, 177, 229, 0.72) 0 3px, transparent 4px),
+    radial-gradient(circle at 82% 50%, rgba(255, 183, 43, 0.72) 0 3px, transparent 4px);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.empty-prompt {
+  width: 170px;
+  height: 84px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.035);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.018);
+}
+
+.empty-prompt strong,
+.empty-prompt span {
+  position: relative;
+  z-index: 1;
+  display: block;
+}
+
+.empty-prompt strong {
+  color: rgba(255, 255, 255, 0.52);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.empty-prompt span {
+  margin-top: 8px;
+  color: rgba(255, 255, 255, 0.24);
+  font-size: 10px;
+}
+
+.empty-prompt::after {
+  content: "";
+  display: block;
+  width: 54px;
+  height: 2px;
+  margin-top: 14px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #008ee5, #6ee9ff, #ffb72b);
+  opacity: 0.74;
+}
+
+.empty-brand {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.13) 0 1px, transparent 1.2px) 0 0 / 17px 17px,
+    radial-gradient(circle at 50% 50%, rgba(0, 148, 255, 0.16), transparent 44%),
+    linear-gradient(135deg, transparent 0 42%, rgba(91, 228, 255, 0.05) 43% 47%, rgba(255, 183, 43, 0.045) 48% 52%, transparent 53%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 0 58%, transparent 76%);
+  opacity: 0.9;
+}
+
+.empty-brand-mark {
+  position: relative;
+  width: 82px;
+  height: 82px;
+  opacity: 0.32;
+}
+
+.empty-brand-mark::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border-radius: 16px 40px 18px 40px;
+  background: linear-gradient(135deg, #0094ff 0%, #5be4ff 60%, #ffb72b 100%);
+  transform: rotate(-18deg);
+}
+
+.canvas-stage.empty-style-energy .empty-typed,
+.canvas-stage.empty-style-energy .empty-prompt,
+.canvas-stage.empty-style-energy .empty-brand,
+.canvas-stage.empty-style-energy .empty-brand-mark,
+.canvas-stage.empty-style-typed .empty-core,
+.canvas-stage.empty-style-typed .empty-prompt,
+.canvas-stage.empty-style-typed .empty-brand,
+.canvas-stage.empty-style-typed .empty-brand-mark,
+.canvas-stage.empty-style-prompt .empty-core,
+.canvas-stage.empty-style-prompt .empty-typed,
+.canvas-stage.empty-style-prompt .empty-brand,
+.canvas-stage.empty-style-prompt .empty-brand-mark,
+.canvas-stage.empty-style-brand .empty-core,
+.canvas-stage.empty-style-brand .empty-typed,
+.canvas-stage.empty-style-brand .empty-prompt {
+  display: none;
+}
+
+.canvas-stage.empty-style-original .node-empty {
+  display: none;
+}
+
+@keyframes emptyEnergyPulse {
+  0%,
+  100% {
+    transform: rotate(-18deg) scale(0.92);
+    opacity: 0.62;
+  }
+
+  50% {
+    transform: rotate(-18deg) scale(1.06);
+    opacity: 0.9;
+  }
+}
+
+@keyframes emptyHaloPulse {
+  0%,
+  100% {
+    transform: scale(0.92);
+    opacity: 0.44;
+  }
+
+  50% {
+    transform: scale(1.08);
+    opacity: 0.78;
+  }
 }
 
 .port {
@@ -1035,7 +1383,7 @@ img {
   }
 }
 
-</style>
+    </style>
   </head>
   <body>
     <main class="canvas-shell" aria-label="Exp canvas interactive prototype">
@@ -1069,16 +1417,16 @@ img {
         </header>
 
         <nav class="left-tools" aria-label="节点工具">
-          <button type="button" aria-label="Text">
+          <button type="button" aria-label="Text" data-toolbar-node="text">
             <img src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgdmlld0JveD0iMCAwIDIwIDIwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBpZD0iaWNvbi10ZXh0LWdlbiI+CjxwYXRoIGlkPSJVbmlvbiIgZD0iTTE1LjU1MDYgMTEuMjMxQzE1LjY4NTQgMTAuOTA1NiAxNi4xMzU2IDEwLjkwNTcgMTYuMjcwMyAxMS4yMzFMMTYuNDYzNyAxMS42OTc4QzE2Ljc5MzYgMTIuNDk0MyAxNy40MDg2IDEzLjEzMDkgMTguMTgyNSAxMy40NzUxTDE4LjczMDMgMTMuNzE4M0MxOS4wNDQgMTMuODU3OCAxOS4wNDM5IDE0LjMxNCAxOC43MzAzIDE0LjQ1MzZMMTguMTUwMiAxNC43MTI0QzE3LjM5NTkgMTUuMDQ3OSAxNi43OTE2IDE1LjY2MDkgMTYuNDU1OSAxNi40MzEyTDE2LjI2NzQgMTYuODYyOEMxNi4xMjk2IDE3LjE3OTEgMTUuNjkxNCAxNy4xNzkxIDE1LjU1MzUgMTYuODYyOEwxNS4zNjYgMTYuNDMxMkMxNS4wMzA0IDE1LjY2MDggMTQuNDI1MiAxNS4wNDc5IDEzLjY3MDcgMTQuNzEyNEwxMy4wOTA3IDE0LjQ1MzZDMTIuNzc3MyAxNC4zMTQgMTIuNzc3MiAxMy44NTc4IDEzLjA5MDcgMTMuNzE4M0wxMy42Mzg1IDEzLjQ3NTFDMTQuNDEyMyAxMy4xMzA5IDE1LjAyNzQgMTIuNDk0MyAxNS4zNTczIDExLjY5NzhMMTUuNTUwNiAxMS4yMzFaTTE2Ljc1MTggMy43NDY1OEMxNy4xNzE5IDMuNzg5MzMgMTcuNDk5NyA0LjE0NDM2IDE3LjQ5OTggNC41NzU2OFY2LjYzMTM1QzE3LjQ5OTggNy4wOTE0NCAxNy4xMjY5IDcuNDY0MTggMTYuNjY2OCA3LjQ2NDM2QzE2LjIwNjcgNy40NjQyOCAxNS44MzI5IDcuMDkxNSAxNS44MzI4IDYuNjMxMzVWNS40MDg2OUgxMC45NDMyVjE1LjM5N0gxMi4wODI4TDEyLjE2ODggMTUuNDAwOUMxMi41ODg3IDE1LjQ0MzggMTIuOTE2NyAxNS43OTg4IDEyLjkxNjggMTYuMjNDMTIuOTE2NiAxNi42NjExIDEyLjU4ODYgMTcuMDE1MiAxMi4xNjg4IDE3LjA1ODFMMTIuMDgyOCAxNy4wNjNINy45MTg3OEM3LjQ1ODg2IDE3LjA2MjggNy4wODU5OSAxNi42ODk5IDcuMDg1NzcgMTYuMjNDNy4wODU5MyAxNS43NyA3LjQ1ODgyIDE1LjM5NzIgNy45MTg3OCAxNS4zOTdIOS4yNzYyVjUuNDA4NjlMNC4xNjI5MiA1LjQ2ODI2VjYuNjg5OTRDNC4xNjI5MiA3LjE1MDE0IDMuNzg5MTIgNy41MjM4NyAzLjMyODk0IDcuNTIzOTNDMi44Njg4MyA3LjUyMzc3IDIuNDk1OTMgNy4xNTAwOSAyLjQ5NTkzIDYuNjg5OTRWNC42MzQyOEwyLjQ5OTg0IDQuNTQ5MzJDMi41NDI3IDQuMTI5NCAyLjg5Nzc0IDMuODAxNDEgMy4zMjg5NCAzLjgwMTI3TDE2LjY2NjggMy43NDI2OEwxNi43NTE4IDMuNzQ2NThaIiBmaWxsPSJ2YXIoLS1maWxsLTAsIHdoaXRlKSIvPgo8L2c+Cjwvc3ZnPgo=" alt="" />
           </button>
           <button type="button" aria-label="Image" data-toolbar-node="image">
             <img src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgdmlld0JveD0iMCAwIDIwIDIwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBpZD0iaWNvbi1pbWFnZS1nZW5lcmF0b3IiPgo8cGF0aCBpZD0iVW5pb24iIGQ9Ik0xMy42NjA1IDIuMTcyODVDMTUuOTYxNiAyLjE3Mjg1IDE3LjgyNyA0LjAzODQzIDE3LjgyNzIgNi4zMzk1MlY5Ljg5MzM5QzE3LjM1NTMgOS43NDU4NSAxNi44NTM0IDkuNjY2MzQgMTYuMzMzIDkuNjY2MzRDMTYuMjc1MyA5LjY2NjM0IDE2LjIxNzggOS42Njg0NyAxNi4xNjA1IDkuNjcwNDFWNi4zMzk1MkMxNi4xNjA0IDQuOTU4OSAxNS4wNDExIDMuODM5NTIgMTMuNjYwNSAzLjgzOTUySDYuMzM5NTJDNC45NTg4NyAzLjgzOTUyIDMuODM5NjMgNC45NTg5IDMuODM5NTIgNi4zMzk1MlYxMi43NzkxTDYuODA1MDEgOS43MDQ1OUM3Ljc4MDI2IDguNjkzMzQgOS4zNzgwNSA4LjYyNTcgMTAuNDM1NCA5LjU1MDc4TDEyLjU0ODggMTEuMzk5N0MxMi4xODAzIDExLjgyNjMgMTEuODgzMiAxMi4zMTU4IDExLjY3NDggMTIuODQ5OUw5LjMzNzU3IDEwLjgwNDlDOC45NDk0IDEwLjQ2NTMgOC4zNjI2MiAxMC40ODk5IDguMDA0NTYgMTAuODYxTDQuMTQ3MTQgMTQuODYwOEM0LjU3MTk5IDE1LjYzNSA1LjM5NDA4IDE2LjE2MDUgNi4zMzk1MiAxNi4xNjA1SDExLjU2MDFDMTEuNzUyNSAxNi43NzU3IDEyLjA2MSAxNy4zMzk2IDEyLjQ1OTMgMTcuODI3MUg2LjMzOTUyTDYuMTI1NDkgMTcuODIxNUM0LjIxNjg1IDE3LjcyNDkgMi42NDgwNyAxNi4zNDM4IDIuMjY0IDE0LjUyNTZMMi4yMDc4NSAxNC40NzE4TDIuMjQ0NDcgMTQuNDMyOEMyLjIxMDM2IDE0LjI1MDcgMi4xODgxNSAxNC4wNjQxIDIuMTc4NTUgMTMuODc0NUwyLjE3Mjg1IDEzLjY2MDVWNi4zMzk1MkMyLjE3Mjk2IDQuMDM4NDMgNC4wMzg0IDIuMTcyODUgNi4zMzk1MiAyLjE3Mjg1SDEzLjY2MDVaTTE2LjAyODYgMTEuOTEwOEMxNi4xNjM0IDExLjU4NTQgMTYuNjEzMyAxMS41ODU0IDE2Ljc0OCAxMS45MTA4TDE2Ljk0MDkgMTIuMzc3OUMxNy4yNzA5IDEzLjE3NDMgMTcuODg2NyAxMy44MTAzIDE4LjY2MDUgMTQuMTU0NUwxOS4yMDgyIDE0LjM5NzhDMTkuNTIxOCAxNC41MzczIDE5LjUyMTggMTQuOTkzOSAxOS4yMDgyIDE1LjEzMzVMMTguNjI3OSAxNS4zOTE0QzE3Ljg3MzUgMTUuNzI3IDE3LjI2OTMgMTYuMzQwNyAxNi45MzM2IDE3LjExMUwxNi43NDQ4IDE3LjU0MzFDMTYuNjA2OSAxNy44NTkgMTYuMTY5OSAxNy44NTkgMTYuMDMxOSAxNy41NDMxTDE1Ljg0MzEgMTcuMTExQzE1LjUwNzQgMTYuMzQwNyAxNC45MDMyIDE1LjcyNyAxNC4xNDg4IDE1LjM5MTRMMTMuNTY4NSAxNS4xMzM1QzEzLjI1NDkgMTQuOTkzOSAxMy4yNTQ5IDE0LjUzNzMgMTMuNTY4NSAxNC4zOTc4TDE0LjExNjIgMTQuMTU0NUMxNC44OSAxMy44MTAzIDE1LjUwNTkgMTMuMTc0NCAxNS44MzU4IDEyLjM3NzlMMTYuMDI4NiAxMS45MTA4Wk0xMy4wNzQ1IDUuNjk3NDNDMTMuNzkwMyA1LjY5NzQ5IDE0LjM3MDggNi4yNzgwMyAxNC4zNzA5IDYuOTkzODJDMTQuMzcwOCA3LjcwOTU1IDEzLjc5MDMgOC4yOTAxNCAxMy4wNzQ1IDguMjkwMkMxMi4zNTg3IDguMjkwMiAxMS43NzgzIDcuNzA5NTkgMTEuNzc4MiA2Ljk5MzgyQzExLjc3ODMgNi4yNzc5OSAxMi4zNTg3IDUuNjk3NDMgMTMuMDc0NSA1LjY5NzQzWiIgZmlsbD0idmFyKC0tZmlsbC0wLCB3aGl0ZSkiLz4KPC9nPgo8L3N2Zz4K" alt="" />
           </button>
-          <button type="button" aria-label="Video">
+          <button type="button" aria-label="Video" data-toolbar-node="video">
             <img src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgdmlld0JveD0iMCAwIDIwIDIwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBpZD0iaWNvbi12aWRlby1nZW5lcmF0b3IiPgo8cGF0aCBpZD0iT3JpZ2luYWwiIGQ9Ik0xMC40NDUzIDEuMzU1MThDMTUuMDE5IDEuNTg2OTUgMTguNjU2NSA1LjM2ODgzIDE4LjY1NjUgMTAuMDAwMkwxOC42NTU3IDEwLjAxODlDMTguMTQ0IDkuNjkxMjQgMTcuNTcwOSA5LjQ1MTEgMTYuOTU2NSA5LjMyMjMxQzE2LjYxNTUgNS43ODAyMiAxMy42MzE2IDMuMDEwNTMgMTAuMDAwMSAzLjAxMDQ2QzYuMTM5ODYgMy4wMTA0NiAzLjAxMDM2IDYuMTM5OTYgMy4wMTAzNiAxMC4wMDAyQzMuMDEwNDQgMTMuODYwNCA2LjEzOTkxIDE2Ljk5IDEwLjAwMDEgMTYuOTlDMTAuNDk1NyAxNi45ODk5IDEwLjk3OSAxNi45MzY3IDExLjQ0NTQgMTYuODM4NkMxMS43NDk2IDE3LjM3NzQgMTIuMTQ4NSAxNy44NTQ5IDEyLjYxOTcgMTguMjQ5N0MxMS43OTMxIDE4LjUxMiAxMC45MTM2IDE4LjY1NjYgMTAuMDAwMSAxOC42NTY2TDkuNTU0MTQgMTguNjQ1MkM1LjEyODA5IDE4LjQyMDcgMS41NzkzNyAxNC44NzE1IDEuMzU1MDggMTAuNDQ1NEwxLjM0MzY5IDEwLjAwMDJDMS4zNDM2OSA1LjIxOTQ4IDUuMjE5MzggMS4zNDM3OSAxMC4wMDAxIDEuMzQzNzlMMTAuNDQ1MyAxLjM1NTE4Wk0xNi4wMjg3IDExLjkxMUMxNi4xNjM1IDExLjU4NTYgMTYuNjEzNCAxMS41ODU2IDE2Ljc0ODEgMTEuOTExTDE2Ljk0MSAxMi4zNzczQzE3LjI3MSAxMy4xNzM4IDE3Ljg4NjggMTMuODEwNSAxOC42NjA2IDE0LjE1NDdMMTkuMjA4MyAxNC4zOThDMTkuNTIxNyAxNC41Mzc2IDE5LjUyMTggMTQuOTk0MSAxOS4yMDgzIDE1LjEzMzdMMTguNjI4IDE1LjM5MTZDMTcuODczNyAxNS43MjcyIDE3LjI2ODYgMTYuMzQwMSAxNi45MzI5IDE3LjExMDRMMTYuNzQ0OSAxNy41NDI1QzE2LjYwNzEgMTcuODU4OCAxNi4xNjk5IDE3Ljg1ODggMTYuMDMyIDE3LjU0MjVMMTUuODQzMiAxNy4xMTA0QzE1LjUwNzUgMTYuMzQwMyAxNC45MDMxIDE1LjcyNzEgMTQuMTQ4OSAxNS4zOTE2TDEzLjU2ODYgMTUuMTMzN0MxMy4yNTUgMTQuOTk0MSAxMy4yNTUgMTQuNTM3NSAxMy41Njg2IDE0LjM5OEwxNC4xMTYzIDE0LjE1NDdDMTQuODkwMSAxMy44MTA1IDE1LjUwNTIgMTMuMTczOCAxNS44MzUxIDEyLjM3NzNMMTYuMDI4NyAxMS45MTFaTTguODYxNTkgNy4wOTY1NkM5LjIzMTg2IDcuMDU3NjQgOS42ODM1OSA3LjMxODUzIDEwLjU4NiA3LjgzOTU2TDExLjU3ODEgOC40MTI0OEMxMi40ODAzIDguOTMzMzYgMTIuOTMxMyA5LjE5MzkgMTMuMDgyOCA5LjUzMzlDMTMuMjE0OCA5LjgzMDQ5IDEzLjIxNDggMTAuMTY5MSAxMy4wODI4IDEwLjQ2NTdDMTIuOTMxNCAxMC44MDU4IDEyLjQ4MDUgMTEuMDY2OSAxMS41NzgxIDExLjU4NzlMMTAuNTg2IDEyLjE2MDhDOS42ODM1OSAxMi42ODE5IDkuMjMxODYgMTIuOTQyIDguODYxNTkgMTIuOTAzQzguNTM4NzggMTIuODY5IDguMjQ1MTIgMTIuNzAwMSA4LjA1NDMgMTIuNDM3NUM3LjgzNTQ4IDEyLjEzNjQgNy44MzYyIDExLjYxNSA3LjgzNjIgMTAuNTczMVY5LjQyNzI5QzcuODM2MiA4LjM4NTM5IDcuODM1NTcgNy44NjQwOSA4LjA1NDMgNy41NjI4N0M4LjI0NTEzIDcuMzAwMjIgOC41Mzg3NCA3LjEzMDU3IDguODYxNTkgNy4wOTY1NloiIGZpbGw9InZhcigtLWZpbGwtMCwgd2hpdGUpIi8+CjwvZz4KPC9zdmc+Cg==" alt="" />
           </button>
-          <button type="button" aria-label="Audio">
+          <button type="button" aria-label="Audio" data-toolbar-node="audio">
             <img src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgdmlld0JveD0iMCAwIDIwIDIwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBpZD0iaWNvbi1yZWNvcmQiPgo8ZyBpZD0iVW5pb24iPgo8cGF0aCBkPSJNOC42NjcwMyAzLjMzMzQyQzguNjY3MDEgMi43ODExMyA4LjIxOTI4IDIuMzMzNCA3LjY2Njk5IDIuMzMzMzdDNy4xMTQ3MSAyLjMzMzM1IDYuNjY3MDEgMi43ODEwNSA2LjY2NzAzIDMuMzMzMzNMNi42Njc2IDE2LjY2NjdDNi42Njc2MyAxNy4yMTkgNy4xMTUzNiAxNy42NjY3IDcuNjY3NjUgMTcuNjY2N0M4LjIxOTkzIDE3LjY2NjcgOC42Njc2MyAxNy4yMTkgOC42Njc2IDE2LjY2NjhMOC42NjcwMyAzLjMzMzQyWiIgZmlsbD0idmFyKC0tZmlsbC0wLCB3aGl0ZSkiLz4KPHBhdGggZD0iTTQuMDAwMzMgNy41MDAwMUM0LjAwMDMgNi45NDc3MiAzLjU1MjU3IDYuNDk5OTkgMy4wMDAyOCA2LjQ5OTk2QzIuNDQ4IDYuNDk5OTQgMi4wMDAzIDYuOTQ3NjQgMi4wMDAzMyA3LjQ5OTkyTDIuMDAwNTQgMTIuNDk5OUMyLjAwMDU2IDEzLjA1MjIgMi40NDgzIDEzLjQ5OTkgMy4wMDA1OCAxMy41QzMuNTUyODcgMTMuNSA0LjAwMDU2IDEzLjA1MjMgNC4wMDA1NCAxMi41TDQuMDAwMzMgNy41MDAwMVoiIGZpbGw9InZhcigtLWZpbGwtMCwgd2hpdGUpIi8+CjxwYXRoIGQ9Ik0xMi4zMzM3IDQuODMzM0MxMi44ODU5IDQuODMzMyAxMy4zMzM3IDUuMjgxMDEgMTMuMzMzNyA1LjgzMzNWMTAuNzI4MkMxMi41OTc2IDEwLjkwMjEgMTEuOTE5NiAxMS4yMjYxIDExLjMzMzcgMTEuNjY2MkwxMS4zMzM3IDUuODMzM0MxMS4zMzM3IDUuMjgxMDEgMTEuNzgxNCA0LjgzMzMgMTIuMzMzNyA0LjgzMzNaIiBmaWxsPSJ2YXIoLS1maWxsLTAsIHdoaXRlKSIvPgo8cGF0aCBkPSJNMTYuMDAwMSAxMC41ODMzSDE4LjAwMDFMMTggOC43NTAwMUMxOCA4LjE5NzcyIDE3LjU1MjIgNy43NDk5OSAxNyA3Ljc0OTk2QzE2LjQ0NzcgNy43NDk5NCAxNiA4LjE5NzY0IDE2IDguNzQ5OTJMMTYuMDAwMSAxMC41ODMzWiIgZmlsbD0idmFyKC0tZmlsbC0wLCB3aGl0ZSkiLz4KPHBhdGggZD0iTTE0LjY5MzkgMTIuNjk0OUMxNC44MTUyIDEyLjQzNSAxNS4xODQ4IDEyLjQzNSAxNS4zMDYxIDEyLjY5NDlMMTUuNzExMiAxMy41NjI5QzE1Ljk0NiAxNC4wNjYyIDE2LjM1MDUgMTQuNDcwNiAxNi44NTM3IDE0LjcwNTVMMTcuNzIxOCAxNS4xMTA2QzE3Ljk4MTYgMTUuMjMxOSAxNy45ODE2IDE1LjYwMTQgMTcuNzIxOCAxNS43MjI3TDE2Ljg1MzcgMTYuMTI3OEMxNi4zNTA1IDE2LjM2MjcgMTUuOTQ2IDE2Ljc2NzIgMTUuNzExMiAxNy4yNzA0TDE1LjMwNjEgMTguMTM4NEMxNS4xODQ4IDE4LjM5ODMgMTQuODE1MiAxOC4zOTgzIDE0LjY5MzkgMTguMTM4NEwxNC4yODg4IDE3LjI3MDRDMTQuMDU0IDE2Ljc2NzIgMTMuNjQ5NSAxNi4zNjI3IDEzLjE0NjMgMTYuMTI3OEwxMi4yNzgyIDE1LjcyMjdDMTIuMDE4NCAxNS42MDE0IDEyLjAxODQgMTUuMjMxOSAxMi4yNzgyIDE1LjExMDZMMTMuMTQ2MyAxNC43MDU1QzEzLjY0OTUgMTQuNDcwNiAxNC4wNTQgMTQuMDY2MiAxNC4yODg4IDEzLjU2MjlMMTQuNjkzOSAxMi42OTQ5WiIgZmlsbD0idmFyKC0tZmlsbC0wLCB3aGl0ZSkiLz4KPC9nPgo8L2c+Cjwvc3ZnPgo=" alt="" />
           </button>
           <button type="button" aria-label="Timeline">
@@ -1096,14 +1444,14 @@ img {
           </button>
         </nav>
 
-        <div class="bottom-tools" aria-hidden="true">
+        <div class="bottom-tools">
           <button class="active" type="button">
             <img src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgdmlld0JveD0iMCAwIDEyIDEyIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBpZD0iaWNvbiI+CjxwYXRoIGlkPSJWZWN0b3IgMTQ4MCAoU3Ryb2tlKSIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yLjc0NjE3IDIuNDg1MzJMNC4wMDY3IDkuNDE4MjZMNS42NzY0NCA2LjgyMDlDNS44NjI2IDYuNTMxMzIgNi4xNjc2NSA2LjMzOTI1IDYuNTA5MjUgNi4yOTY1NUw5LjEwNDUgNS45NzIxNUwyLjc0NjE3IDIuNDg1MzJaTTEuNTczMzMgMi41MjY1NEMxLjQxMDY0IDEuNjMxNzEgMi4zNTg2OSAwLjk0ODM4NiAzLjE1NjE2IDEuMzg1NzFMOS44ODEzOSA1LjA3Mzc0QzEwLjgwMDQgNS41Nzc3MiAxMC41MzU5IDYuOTYzNTUgOS40OTU4MSA3LjA5MzU2TDYuNjUzMjkgNy40NDg4OEw0Ljg3Mjk2IDEwLjIxODNDNC4zNDI2NSAxMS4wNDMyIDMuMDc2MTYgMTAuNzkyMSAyLjkwMDczIDkuODI3MjJMMS41NzMzMyAyLjUyNjU0WiIgZmlsbD0idmFyKC0tZmlsbC0wLCB3aGl0ZSkiLz4KPC9nPgo8L3N2Zz4K" alt="" />
           </button>
           <button type="button">
             <img src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgdmlld0JveD0iMCAwIDEyIDEyIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBpZD0iaWNvbiI+CjxwYXRoIGlkPSJVbmlvbiIgZD0iTTQuMDcxNzggMS43ODMyM0M0LjMwOTI3IDEuNjgxMzUgNC41NzcwNCAxLjY3NDk4IDQuODE4ODUgMS43NjYxNEw3LjMyNTIgMi43MTA5Nkw5LjM0ODYzIDEuOTQ5NzNDMTAuMDAyNSAxLjcwMzY4IDEwLjcwMSAyLjE4NjcgMTAuNzAxMiAyLjg4NTI4VjguMTEyMzNDMTAuNzAxMSA4LjQ5MjUyIDEwLjQ4NTMgOC44NDAxOSAxMC4xNDQ1IDkuMDA4ODFMNy43NDU2MSAxMC4xOTUzQzcuNDkyMDEgMTAuMzIwNyA3LjE5NzA5IDEwLjMzMjcgNi45MzQwOCAxMC4yMjg1TDQuNDYxNDMgOS4yNDg1NkwyLjY5NDgyIDEwLjAwNTlDMi4wMzUwMiAxMC4yODg4IDEuMzAwOTEgOS44MDQ4NSAxLjMwMDc4IDkuMDg2OTRWMy42MzA4OEMxLjMwMDc4IDMuMjMxMDEgMS41MzkyNyAyLjg2OTYxIDEuOTA2NzQgMi43MTE5NEw0LjA3MTc4IDEuNzgzMjNaTTQuOTU0MSA4LjM2NzdMNi44MjUyIDkuMTA5NFYzLjU5MTMzTDQuOTU0MSAyLjg4NTc3VjguMzY3N1pNMi4zMDA3OCAzLjYzMDg4VjkuMDg2OTRMMy45NTQxIDguMzc3NDdWMi45MjE0MUwyLjMwMDc4IDMuNjMwODhaTTcuODI1MiAzLjU5MDg1VjkuMDQwMDZMOS43MDExNyA4LjExMjMzVjIuODg1MjhMNy44MjUyIDMuNTkwODVaIiBmaWxsPSJ2YXIoLS1maWxsLTAsIHdoaXRlKSIgZmlsbC1vcGFjaXR5PSIwLjgiLz4KPC9nPgo8L3N2Zz4K" alt="" />
           </button>
-          <button type="button">
+          <button class="active" type="button" data-connection-visibility aria-pressed="true" aria-label="显示所有连线">
             <img src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgdmlld0JveD0iMCAwIDEyIDEyIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBpZD0iaWNvbiI+CjxwYXRoIGlkPSJVbmlvbiIgZD0iTTkuNSAxLjVDOS44OTc4MiAxLjUgMTAuMjc5MiAxLjY1ODE1IDEwLjU2MDUgMS45Mzk0NUMxMC44NDE5IDIuMjIwNzYgMTEgMi42MDIxOCAxMSAzQzExIDMuMzk3ODMgMTAuODQxOSAzLjc3OTI0IDEwLjU2MDUgNC4wNjA1NUMxMC4yNzkyIDQuMzQxODUgOS44OTc4MiA0LjUgOS41IDQuNUM5LjEwMjE3IDQuNSA4LjcyMDc2IDQuMzQxODUgOC40Mzk0NSA0LjA2MDU1QzguMjc5OTMgMy45MDEwMiA4LjE2MTgyIDMuNzA4NjUgOC4wODc4OSAzLjVINy40MTY1QzcuMTcyNzcgMy41MDAwNSA2Ljk2NzQ2IDMuNjAyMTcgNi43NDkwMiAzLjgyMTc4QzYuNTE2NDggNC4wNTU1OCA2LjMxMTczIDQuMzc4OCA2LjA2OTgyIDQuNzY2MTFDNS44NDMwMiA1LjEyOTI0IDUuNTc4NzQgNS41NTY3MyA1LjI1MTQ2IDUuODg1NzRDNS4yMTI0MyA1LjkyNDk3IDUuMTcxNyA1Ljk2MjkgNS4xMjk4OCA2QzUuMTcxNyA2LjAzNzEgNS4yMTI0MyA2LjA3NTAzIDUuMjUxNDYgNi4xMTQyNkM1LjU3ODc0IDYuNDQzMjcgNS44NDMwMiA2Ljg3MDc2IDYuMDY5ODIgNy4yMzM4OUM2LjMxMTczIDcuNjIxMiA2LjUxNjQ4IDcuOTQ0NDIgNi43NDkwMiA4LjE3ODIyQzYuOTY3NDYgOC4zOTc4MyA3LjE3Mjc3IDguNDk5OTUgNy40MTY1IDguNUg4LjA4Nzg5QzguMTYxODIgOC4yOTEzNSA4LjI3OTkzIDguMDk4OTggOC40Mzk0NSA3LjkzOTQ1QzguNzIwNzYgNy42NTgxNSA5LjEwMjE3IDcuNSA5LjUgNy41QzkuODk3ODIgNy41IDEwLjI3OTIgNy42NTgxNSAxMC41NjA1IDcuOTM5NDVDMTAuODQxOSA4LjIyMDc2IDExIDguNjAyMTggMTEgOUMxMSA5LjM5NzgzIDEwLjg0MTkgOS43NzkyNCAxMC41NjA1IDEwLjA2MDVDMTAuMjc5MiAxMC4zNDE5IDkuODk3ODIgMTAuNSA5LjUgMTAuNUM5LjEwMjE3IDEwLjUgOC43MjA3NiAxMC4zNDE5IDguNDM5NDUgMTAuMDYwNUM4LjI3OTkzIDkuOTAxMDIgOC4xNjE4MiA5LjcwODY1IDguMDg3ODkgOS41SDcuNDE2NUM2LjgyNzEyIDkuNDk5OTUgNi4zODE0IDkuMjI2OTMgNi4wNDAwNCA4Ljg4Mzc5QzUuNzEyNzEgOC41NTQ3MSA1LjQ0ODUxIDguMTI2ODQgNS4yMjE2OCA3Ljc2MzY3QzQuOTc5OCA3LjM3NjQxIDQuNzc1MDEgNy4wNTM1OSA0LjU0MjQ4IDYuODE5ODJDNC4zMzg0NSA2LjYxNDcxIDQuMTQ1OTggNi41MTMxNiAzLjkyMjg1IDYuNTAwNDlDMy45MDcgNi41MDA4OSAzLjg5MTA2IDYuNTAxOTUgMy44NzUgNi41MDE5NUgzLjQzNzk5QzMuMzY3NjcgNi43NDAwNyAzLjIzOTMgNi45NTk0MyAzLjA2MDU1IDcuMTM4MThDMi43NzkyNCA3LjQxOTQ5IDIuMzk3ODIgNy41Nzc2NCAyIDcuNTc3NjRDMS42MDIxNyA3LjU3NzY0IDEuMjIwNzYgNy40MTk0OSAwLjkzOTQ1MyA3LjEzODE4QzAuNjU4MTQ5IDYuODU2ODggMC41IDYuNDc1NDYgMC41IDYuMDc3NjRDMC41IDUuNjc5ODEgMC42NTgxNDkgNS4yOTgzOSAwLjkzOTQ1MyA1LjAxNzA5QzEuMjIwNzYgNC43MzU3OSAxLjYwMjE3IDQuNTc3NjQgMiA0LjU3NzY0QzIuMzk3ODIgNC41Nzc2NCAyLjc3OTI0IDQuNzM1NzkgMy4wNjA1NSA1LjAxNzA5QzMuMTk5NjggNS4xNTYyMiAzLjMwODE3IDUuMzIwMDYgMy4zODI4MSA1LjQ5ODA1SDMuODc1QzMuODkxMDYgNS40OTgwNSAzLjkwNyA1LjQ5ODYyIDMuOTIyODUgNS40OTkwMkM0LjE0NTk2IDUuNDg2MzQgNC4zMzg0NiA1LjM4NTI4IDQuNTQyNDggNS4xODAxOEM0Ljc3NTAxIDQuOTQ2NDEgNC45Nzk4IDQuNjIzNTkgNS4yMjE2OCA0LjIzNjMzQzUuNDQ4NDggMy44NzMyIDUuNzEyNzYgMy40NDU3NiA2LjA0MDA0IDMuMTE2N0M2LjM4MTQxIDIuNzczNSA2LjgyNzA1IDIuNTAwMDUgNy40MTY1IDIuNUg4LjA4Nzg5QzguMTYxODIgMi4yOTEzNSA4LjI3OTkzIDIuMDk4OTggOC40Mzk0NSAxLjkzOTQ1QzguNzIwNzYgMS42NTgxNSA5LjEwMjE3IDEuNSA5LjUgMS41Wk05LjUgOC41QzkuMzY3MzkgOC41IDkuMjQwMjUgOC41NTI3MiA5LjE0NjQ4IDguNjQ2NDhDOS4wNTI3MiA4Ljc0MDI1IDkgOC44NjczOSA5IDlDOSA5LjEzMjYxIDkuMDUyNzIgOS4yNTk3NSA5LjE0NjQ4IDkuMzUzNTJDOS4yNDAyNSA5LjQ0NzI4IDkuMzY3MzkgOS41IDkuNSA5LjVDOS42MzI2MSA5LjUgOS43NTk3NSA5LjQ0NzI4IDkuODUzNTIgOS4zNTM1MkM5Ljk0NzI4IDkuMjU5NzUgMTAgOS4xMzI2MSAxMCA5QzEwIDguODY3MzkgOS45NDcyOCA4Ljc0MDI1IDkuODUzNTIgOC42NDY0OEM5Ljc1OTc1IDguNTUyNzIgOS42MzI2MSA4LjUgOS41IDguNVpNMiA1LjU3NzY0QzEuODY3MzkgNS41Nzc2NCAxLjc0MDI1IDUuNjMwMzUgMS42NDY0OCA1LjcyNDEyQzEuNTUyNzIgNS44MTc4OSAxLjUgNS45NDUwMyAxLjUgNi4wNzc2NEMxLjUgNi4yMTAyNCAxLjU1MjcyIDYuMzM3MzggMS42NDY0OCA2LjQzMTE1QzEuNzQwMjUgNi41MjQ5MiAxLjg2NzM5IDYuNTc3NjQgMiA2LjU3NzY0QzIuMTMyNjEgNi41Nzc2NCAyLjI1OTc1IDYuNTI0OTIgMi4zNTM1MiA2LjQzMTE1QzIuNDQ3MjggNi4zMzczOCAyLjUgNi4yMTAyNCAyLjUgNi4wNzc2NEMyLjUgNS45NDUwMyAyLjQ0NzI4IDUuODE3ODkgMi4zNTM1MiA1LjcyNDEyQzIuMjU5NzUgNS42MzAzNSAyLjEzMjYxIDUuNTc3NjQgMiA1LjU3NzY0Wk05LjUgMi41QzkuMzY3MzkgMi41IDkuMjQwMjUgMi41NTI3MiA5LjE0NjQ4IDIuNjQ2NDhDOS4wNTI3MiAyLjc0MDI1IDkgMi44NjczOSA5IDNDOSAzLjEzMjYxIDkuMDUyNzIgMy4yNTk3NSA5LjE0NjQ4IDMuMzUzNTJDOS4yNDAyNSAzLjQ0NzI4IDkuMzY3MzkgMy41IDkuNSAzLjVDOS42MzI2MSAzLjUgOS43NTk3NSAzLjQ0NzI4IDkuODUzNTIgMy4zNTM1MkM5Ljk0NzI4IDMuMjU5NzUgMTAgMy4xMzI2MSAxMCAzQzEwIDIuODY3MzkgOS45NDcyOCAyLjc0MDI1IDkuODUzNTIgMi42NDY0OEM5Ljc1OTc1IDIuNTUyNzIgOS42MzI2MSAyLjUgOS41IDIuNVoiIGZpbGw9InZhcigtLWZpbGwtMCwgd2hpdGUpIiBmaWxsLW9wYWNpdHk9IjAuOCIvPgo8L2c+Cjwvc3ZnPgo=" alt="" />
           </button>
           <i></i>
@@ -1115,15 +1463,34 @@ img {
           <span>Chat with AI</span>
         </button>
 
+        <div class="empty-style-panel" aria-label="AB test empty state style">
+          <span>Empty</span>
+          <button class="is-active" type="button" data-empty-style="original" aria-label="原版">
+            <i class="empty-swatch empty-swatch--original"></i>
+          </button>
+          <button type="button" data-empty-style="energy" aria-label="星形能量">
+            <i class="empty-swatch empty-swatch--energy"></i>
+          </button>
+          <button type="button" data-empty-style="typed" aria-label="类型专属">
+            <i class="empty-swatch empty-swatch--typed"></i>
+          </button>
+          <button type="button" data-empty-style="prompt" aria-label="Prompt 引导">
+            <i class="empty-swatch empty-swatch--prompt"></i>
+          </button>
+          <button type="button" data-empty-style="brand" aria-label="品牌水印">
+            <i class="empty-swatch empty-swatch--brand"></i>
+          </button>
+        </div>
+
         <div class="line-theme-panel" aria-label="AB test line color">
           <span>Line</span>
-          <button class="is-active" type="button" data-line-theme="color" aria-label="彩色线">
+          <button type="button" data-line-theme="color" aria-label="彩色线">
             <i class="line-swatch line-swatch--color"></i>
           </button>
           <button type="button" data-line-theme="white" aria-label="白色线">
             <i class="line-swatch line-swatch--white"></i>
           </button>
-          <button type="button" data-line-theme="color-white-frame" aria-label="彩色线白色选中框">
+          <button class="is-active" type="button" data-line-theme="color-white-frame" aria-label="彩色线白色选中框">
             <i class="line-swatch line-swatch--mixed"></i>
           </button>
         </div>
@@ -1189,6 +1556,7 @@ img {
           </button>
           <div class="image-box">
             <img src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgdmlld0JveD0iMCAwIDMwIDMwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBpZD0iaWNvbi1pbWFnZS1jaG9pY2UtZGVmYXVsdCI+CjxwYXRoIGlkPSJPcmlnaW5hbCIgZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0yMC40MDc0IDUuODk5NTVIOS41OTI2M0M3LjU1MyA1Ljg5OTU1IDUuODk5NTUgNy41NTMgNS44OTk1NSA5LjU5MjYzVjIwLjQwNzRDNS44OTk1NSAyMC40NzU1IDUuOTAxMzkgMjAuNTQzMSA1LjkwNTAzIDIwLjYxMDNMMTAuMjkwNyAxNi4yMjQ4QzExLjY2MzQgMTQuODUyMiAxMy44NjQ2IDE0Ljc3NjYgMTUuMzI4MiAxNi4wNTJMMjMuMTU2NiAyMi44NzMzQzIzLjc0MzUgMjIuMjE5NSAyNC4xMDA1IDIxLjM1NTEgMjQuMTAwNSAyMC40MDc0VjkuNTkyNjNDMjQuMTAwNSA3LjU1MyAyMi40NDcgNS44OTk1NSAyMC40MDc0IDUuODk5NTVaTTIzLjkwNDggMjUuNDczQzI1LjUxMDYgMjQuMzYyMiAyNi41NjI1IDIyLjUwNzYgMjYuNTYyNSAyMC40MDc0VjkuNTkyNjNDMjYuNTYyNSA2LjE5MzI0IDIzLjgwNjggMy40Mzc1IDIwLjQwNzQgMy40Mzc1SDkuNTkyNjNDNi4xOTMyNCAzLjQzNzUgMy40Mzc1IDYuMTkzMjQgMy40Mzc1IDkuNTkyNjNWMjAuNDA3NEMzLjQzNzUgMjMuODA2OCA2LjE5MzI0IDI2LjU2MjUgOS41OTI2MyAyNi41NjI1SDIwLjQwNzRDMjEuNjQ1NCAyNi41NjI1IDIyLjc5ODEgMjYuMTk3IDIzLjc2MzQgMjUuNTY4QzIzLjgxMjMgMjUuNTM5OSAyMy44NTk1IDI1LjUwODIgMjMuOTA0OCAyNS40NzNaTTIwLjc5NDIgMjQuMDgwNEwxMy43MTA3IDE3LjkwODJDMTMuMjIyOSAxNy40ODMxIDEyLjQ4OTIgMTcuNTA4MyAxMi4wMzE2IDE3Ljk2NThMNi45Nzk4IDIzLjAxNzNDNy42NDgyMyAyMy42ODY1IDguNTcyMDkgMjQuMTAwNSA5LjU5MjYzIDI0LjEwMDVIMjAuNDA3NEMyMC41MzggMjQuMTAwNSAyMC42NjcxIDI0LjA5MzcgMjAuNzk0MiAyNC4wODA0Wk0xNy41OTc5IDEwLjUwMTNDMTcuNTk3OSA5LjQ0Mzc0IDE4LjQ1NTIgOC41ODY0MSAxOS41MTI4IDguNTg2NDFDMjAuNTcwNCA4LjU4NjQxIDIxLjQyNzcgOS40NDM3NCAyMS40Mjc3IDEwLjUwMTNDMjEuNDI3NyAxMS41NTg5IDIwLjU3MDQgMTIuNDE2MiAxOS41MTI4IDEyLjQxNjJDMTguNDU1MiAxMi40MTYyIDE3LjU5NzkgMTEuNTU4OSAxNy41OTc5IDEwLjUwMTNaIiBmaWxsPSJ2YXIoLS1maWxsLTAsIHdoaXRlKSIgZmlsbC1vcGFjaXR5PSIwLjUiLz4KPC9nPgo8L3N2Zz4K" alt="" />
+            <div class="node-empty" aria-hidden="true"></div>
           </div>
           <button class="port port--right" type="button" aria-label="Add right connection">
             <img src="data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgdmlld0JveD0iMCAwIDIwIDIwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBpZD0iJiMyMzA7JiMxODM7JiMxODc7JiMyMjk7JiMxMzg7JiMxNjA7JiMyMzA7JiMxNTA7JiMxNzY7JiMyMzI7JiMxMzg7JiMxMzA7JiMyMzE7JiMxMzA7JiMxODU7IiBjbGlwLXBhdGg9InVybCgjY2xpcDBfMF81MjY2KSI+Cjxmb3JlaWduT2JqZWN0IHg9Ii00My45NTE2IiB5PSItNDMuOTQ5NiIgd2lkdGg9IjEwNy45IiBoZWlnaHQ9IjEwNy45Ij48ZGl2IHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hodG1sIiBzdHlsZT0iYmFja2Ryb3AtZmlsdGVyOmJsdXIoMjJweCk7Y2xpcC1wYXRoOnVybCgjYmdibHVyXzFfMF81MjY2X2NsaXBfcGF0aCk7aGVpZ2h0OjEwMCU7d2lkdGg6MTAwJSI+PC9kaXY+PC9mb3JlaWduT2JqZWN0PjxwYXRoIGlkPSJWZWN0b3IiIGRhdGEtZmlnbWEtYmctYmx1ci1yYWRpdXM9IjQ0IiBkPSJNOS45OTg0NCAxOS4zNTA0QzE1LjE2MjMgMTkuMzUwNCAxOS4zNDg0IDE1LjE2NDMgMTkuMzQ4NCAxMC4wMDA0QzE5LjM0ODQgNC44MzY1MyAxNS4xNjIzIDAuNjUwMzkxIDkuOTk4NDQgMC42NTAzOTFDNC44MzQ1OCAwLjY1MDM5MSAwLjY0ODQzOCA0LjgzNjUzIDAuNjQ4NDM4IDEwLjAwMDRDMC42NDg0MzggMTUuMTY0MyA0LjgzNDU4IDE5LjM1MDQgOS45OTg0NCAxOS4zNTA0WiIgZmlsbD0idmFyKC0tZmlsbC0wLCAjMEQwRDBEKSIgZmlsbC1vcGFjaXR5PSIwLjAxIiBzdHJva2U9InZhcigtLXN0cm9rZS0wLCB3aGl0ZSkiIHN0cm9rZS1vcGFjaXR5PSIwLjUiIHN0cm9rZS13aWR0aD0iMS4yIi8+CjxwYXRoIGlkPSJWZWN0b3JfMiIgZD0iTTEwIDYuNVYxMy41TTYuNSAxMEgxMy41IiBzdHJva2U9InZhcigtLXN0cm9rZS0wLCB3aGl0ZSkiIHN0cm9rZS1vcGFjaXR5PSIwLjUiIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPC9nPgo8ZGVmcz4KPGNsaXBQYXRoIGlkPSJiZ2JsdXJfMV8wXzUyNjZfY2xpcF9wYXRoIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0My45NTE2IDQzLjk0OTYpIj48cGF0aCBkPSJNOS45OTg0NCAxOS4zNTA0QzE1LjE2MjMgMTkuMzUwNCAxOS4zNDg0IDE1LjE2NDMgMTkuMzQ4NCAxMC4wMDA0QzE5LjM0ODQgNC44MzY1MyAxNS4xNjIzIDAuNjUwMzkxIDkuOTk4NDQgMC42NTAzOTFDNC44MzQ1OCAwLjY1MDM5MSAwLjY0ODQzOCA0LjgzNjUzIDAuNjQ4NDM4IDEwLjAwMDRDMC42NDg0MzggMTUuMTY0MyA0LjgzNDU4IDE5LjM1MDQgOS45OTg0NCAxOS4zNTA0WiIvPgo8L2NsaXBQYXRoPjxjbGlwUGF0aCBpZD0iY2xpcDBfMF81MjY2Ij4KPHJlY3Qgd2lkdGg9IjIwIiBoZWlnaHQ9IjIwIiBmaWxsPSJ3aGl0ZSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPgo=" alt="" />
@@ -1243,10 +1611,13 @@ const hintButton = document.querySelector(".cursor-hint");
 const menu = document.querySelector(".create-menu");
 const imageButton = document.querySelector('[data-node-type="image"]');
 const toolbarImageButton = document.querySelector('[data-toolbar-node="image"]');
+const toolbarNodeButtons = document.querySelectorAll("[data-toolbar-node]");
 const imageNode = document.querySelector(".image-node");
 const promptForm = document.querySelector(".prompt-panel");
 const zoomLabel = document.querySelector(".bottom-tools span");
+const connectionVisibilityButton = document.querySelector("[data-connection-visibility]");
 const lineThemeButtons = document.querySelectorAll("[data-line-theme]");
+const emptyStyleButtons = document.querySelectorAll("[data-empty-style]");
 const boundImageNodes = new WeakSet();
 const nodeWorldPoints = new WeakMap();
 const createdImageNodes = [];
@@ -1275,7 +1646,9 @@ const state = {
   pendingConnection: null,
   connections: [],
   selectedConnection: null,
-  lineTheme: "color",
+  showAllConnections: true,
+  lineTheme: "color-white-frame",
+  emptyStyle: "original",
   connectionFrame: 0,
   connectionSettleFrame: 0,
   nodeDrag: null,
@@ -1322,6 +1695,37 @@ const dragFlowStops = [
   [0.95, "#18ACE9"],
   [1, "#008EE5"],
 ];
+
+const nodeTypeMeta = {
+  text: {
+    label: "Text",
+    prompt: "Write the idea to expand",
+    hint: "Draft, rewrite, continue",
+    glyph: '<svg viewBox="0 0 42 42" aria-hidden="true"><path d="M9 12h24M21 12v18M14 30h14" stroke-width="2.6" stroke-linecap="round"/><path d="M31 25l4 4-4 4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  },
+  image: {
+    label: "Image",
+    prompt: "Describe an image",
+    hint: "Reference, style, ratio",
+    glyph: '<svg viewBox="0 0 42 42" aria-hidden="true"><rect x="10" y="11" width="22" height="20" rx="4" stroke-width="2.4"/><path d="M14 27l6-6 5 5 3-3 4 4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="27" cy="16" r="2" fill="currentColor" stroke="none"/></svg>',
+  },
+  video: {
+    label: "Video",
+    prompt: "Describe the motion",
+    hint: "Scene, camera, duration",
+    glyph: '<svg viewBox="0 0 42 42" aria-hidden="true"><circle cx="21" cy="21" r="12" stroke-width="2.4"/><path d="M18 15l10 6-10 6z" fill="currentColor" stroke="none"/><path d="M28 29l4 4" stroke-width="2.2" stroke-linecap="round"/></svg>',
+  },
+  audio: {
+    label: "Audio",
+    prompt: "Describe the sound",
+    hint: "Voice, mood, rhythm",
+    glyph: '<svg viewBox="0 0 42 42" aria-hidden="true"><path d="M10 24v-6M16 28V14M22 32V10M28 27V15M34 23v-4" stroke-width="2.8" stroke-linecap="round"/><path d="M31 28l4 4-4 4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  },
+};
+
+function normalizedNodeType(type) {
+  return Object.hasOwn(nodeTypeMeta, type) ? type : "image";
+}
 
 starMask.context = starMask.canvas.getContext("2d", { willReadFrequently: true });
 drawStarMask();
@@ -1690,7 +2094,7 @@ function openMenu(point, forceCenter = false) {
   drawDots(performance.now());
 }
 
-function createImageNode(triggerButton = imageButton, point = state.lastClick) {
+function createImageNode(triggerButton = imageButton, point = state.lastClick, nodeType = "image") {
   if (!stage || !triggerButton) {
     return;
   }
@@ -1698,6 +2102,7 @@ function createImageNode(triggerButton = imageButton, point = state.lastClick) {
   const creationScreenPoint = { ...point };
   const creationWorldPoint = screenToWorld(creationScreenPoint);
   const shouldTriggerFirstBurst = createdImageNodes.length === 0;
+  const type = normalizedNodeType(nodeType);
 
   triggerButton.classList.add("is-pressed");
 
@@ -1705,7 +2110,7 @@ function createImageNode(triggerButton = imageButton, point = state.lastClick) {
     triggerButton.classList.remove("is-pressed");
     state.menuOpen = false;
     state.created = true;
-    const node = createImageNodeElement(creationWorldPoint);
+    const node = createImageNodeElement(creationWorldPoint, type);
     setImageNodeSelected(true, node);
     stage.classList.remove("menu-open", "menu-floating", "branch-menu-open");
     stage.classList.add("node-created");
@@ -1729,7 +2134,7 @@ function createImageNode(triggerButton = imageButton, point = state.lastClick) {
   }, 120);
 }
 
-function createImageNodeElement(worldPoint) {
+function createImageNodeElement(worldPoint, nodeType = "image") {
   const isFirstNode = createdImageNodes.length === 0;
   const node = isFirstNode ? imageNode : imageNode.cloneNode(true);
 
@@ -1740,6 +2145,7 @@ function createImageNodeElement(worldPoint) {
   resetNodeConnectionState(node);
   node.classList.remove("is-selected", "is-port-hover", "is-entering", "is-connecting-target", "is-connection-follow", "is-connection-hot", "is-dragging");
   node.setAttribute("aria-pressed", "false");
+  applyNodeType(node, nodeType);
 
   if (!isFirstNode) {
     stage.insertBefore(node, promptForm);
@@ -1759,6 +2165,36 @@ function createImageNodeElement(worldPoint) {
   positionPromptForNode(node);
 
   return node;
+}
+
+function applyNodeType(node, nodeType = "image") {
+  const type = normalizedNodeType(nodeType);
+  const meta = nodeTypeMeta[type];
+  const title = node.querySelector(".node-title span");
+  const empty = node.querySelector(".node-empty");
+
+  node.dataset.nodeType = type;
+  node.classList.add("has-rich-empty");
+  node.setAttribute("aria-label", `${meta.label} node`);
+
+  if (title) {
+    title.textContent = meta.label;
+  }
+
+  if (empty) {
+    empty.innerHTML = `
+      <div class="empty-brand"></div>
+      <div class="empty-brand-mark"></div>
+      <div class="empty-core">
+        <div class="empty-glyph">${meta.glyph}</div>
+      </div>
+      <div class="empty-typed"></div>
+      <div class="empty-prompt">
+        <strong>${meta.prompt}</strong>
+        <span>${meta.hint}</span>
+      </div>
+    `;
+  }
 }
 
 function renderNodeFromWorldPoint(node) {
@@ -2410,7 +2846,7 @@ function drawConnectionLayer() {
   const rect = stage.getBoundingClientRect();
   dragLineContext.clearRect(0, 0, rect.width, rect.height);
 
-  state.connections.forEach((connection) => {
+  visibleConnections().forEach((connection) => {
     drawConnectionPath({
       start: pointFromNodeEdge(connection.sourceNode, connection.sourceSide),
       end: pointFromNodeEdge(connection.targetNode, connection.targetSide),
@@ -2435,6 +2871,14 @@ function drawConnectionLayer() {
   }
 }
 
+function visibleConnections() {
+  if (state.showAllConnections) {
+    return state.connections;
+  }
+
+  return state.connections.filter(isConnectionActive);
+}
+
 function isConnectionActive(connection) {
   return (
     connection === state.selectedConnection ||
@@ -2444,7 +2888,24 @@ function isConnectionActive(connection) {
 }
 
 function shouldAnimateConnections() {
-  return Boolean(state.connectionDrag) || state.connections.some(isConnectionActive);
+  return Boolean(state.connectionDrag) || visibleConnections().some(isConnectionActive);
+}
+
+function setConnectionVisibility(showAll) {
+  state.showAllConnections = Boolean(showAll);
+  connectionVisibilityButton?.classList.toggle("active", state.showAllConnections);
+  connectionVisibilityButton?.setAttribute("aria-pressed", String(state.showAllConnections));
+  connectionVisibilityButton?.setAttribute(
+    "aria-label",
+    state.showAllConnections ? "显示所有连线" : "只显示激活节点相关连线",
+  );
+  drawConnectionLayer();
+
+  if (shouldAnimateConnections()) {
+    startConnectionAnimation();
+  } else {
+    stopConnectionAnimation();
+  }
 }
 
 function selectConnection(connection) {
@@ -2543,7 +3004,7 @@ function connectionFromPoint(point) {
   let closestDistance = Infinity;
   const hitRadius = Math.max(6, 8 * state.viewport.scale);
 
-  state.connections.forEach((connection) => {
+  visibleConnections().forEach((connection) => {
     const start = pointFromNodeEdge(connection.sourceNode, connection.sourceSide);
     const end = pointFromNodeEdge(connection.targetNode, connection.targetSide);
     const bend = Math.max(90, Math.min(240, Math.abs(end.x - start.x) * 0.48));
@@ -2765,6 +3226,24 @@ function setLineTheme(theme) {
   startConnectionAnimation();
 }
 
+function setEmptyStyle(style) {
+  const emptyStyles = ["original", "energy", "typed", "prompt", "brand"];
+  const nextStyle = emptyStyles.includes(style) ? style : "original";
+
+  state.emptyStyle = nextStyle;
+  stage?.classList.remove(
+    "empty-style-original",
+    "empty-style-energy",
+    "empty-style-typed",
+    "empty-style-prompt",
+    "empty-style-brand",
+  );
+  stage?.classList.add(`empty-style-${state.emptyStyle}`);
+  emptyStyleButtons.forEach((button) => {
+    button.classList.toggle("is-active", button.dataset.emptyStyle === state.emptyStyle);
+  });
+}
+
 function hexToRgb(hex) {
   const value = Number.parseInt(hex.slice(1), 16);
 
@@ -2947,16 +3426,26 @@ hintButton?.addEventListener("click", (event) => {
 
 imageButton?.addEventListener("click", (event) => {
   event.stopPropagation();
-  createImageNode(imageButton);
+  createImageNode(imageButton, state.lastClick, "image");
 });
 
-toolbarImageButton?.addEventListener("click", (event) => {
-  event.stopPropagation();
-  createImageNode(toolbarImageButton, toolbarNodePoint());
+toolbarNodeButtons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    event.stopPropagation();
+    createImageNode(button, toolbarNodePoint(), button.dataset.toolbarNode);
+  });
 });
 
 menu?.addEventListener("click", (event) => {
   event.stopPropagation();
+
+  const button = event.target.closest("[data-node-type]");
+
+  if (!button || button === imageButton || !Object.hasOwn(nodeTypeMeta, button.dataset.nodeType)) {
+    return;
+  }
+
+  createImageNode(button, state.lastClick, button.dataset.nodeType);
 });
 
 lineThemeButtons.forEach((button) => {
@@ -2966,6 +3455,19 @@ lineThemeButtons.forEach((button) => {
   });
 });
 
+connectionVisibilityButton?.addEventListener("click", (event) => {
+  event.stopPropagation();
+  setConnectionVisibility(!state.showAllConnections);
+});
+
+emptyStyleButtons.forEach((button) => {
+  button.addEventListener("click", (event) => {
+    event.stopPropagation();
+    setEmptyStyle(button.dataset.emptyStyle);
+  });
+});
+
+applyNodeType(imageNode, "image");
 bindImageNode(imageNode);
 
 stage?.addEventListener("click", (event) => {
@@ -3036,8 +3538,11 @@ window.addEventListener("resize", resizeCanvas);
 
 resizeCanvas();
 setPointVars(centerPoint());
+setConnectionVisibility(true);
+setLineTheme("color-white-frame");
+setEmptyStyle("original");
 updateNodeZoom(1);
 
-</script>
+    </script>
   </body>
 </html>
